@@ -56,13 +56,8 @@
     .filter-btn.active{background:var(--blue-light);color:var(--blue);border-color:#c9dafc}
 
     .faq-section{padding:50px 32px 70px}
-    .faq-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:24px}
-    .flow-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;position:sticky;top:84px;height:fit-content}
-    .flow-card h3{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:8px}
-    .flow-card p{font-size:.8rem;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
-    .flow-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
-    .flow-steps li{font-size:.79rem;color:var(--ink-soft);display:flex;gap:8px;align-items:flex-start}
-    .flow-dot{width:20px;height:20px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;margin-top:1px}
+    .faq-inner{max-width:900px;margin:0 auto;display:block}
+    .faq-inner > div{width:100%}
 
     .faq-list{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg)}
     .faq-item{border-bottom:1px solid var(--border)}
@@ -106,7 +101,7 @@
     .chat-fab:hover{transform:scale(1.07);box-shadow:0 6px 28px rgba(26,107,245,.55)}
     .chat-fab svg{width:24px;height:24px;fill:#fff}
 
-    @media(max-width:980px){.faq-inner{grid-template-columns:1fr}.flow-card{position:static}}
+    @media(max-width:980px){.faq-inner{max-width:900px}}
     @media(max-width:700px){.nav-links{display:none}.nav-ham{display:flex}nav{padding:0 20px}.faq-hero{padding:52px 20px 38px}.faq-section{padding:38px 20px 52px}}
   </style>
 </head>
@@ -146,15 +141,6 @@
 
 <section class="faq-section">
   <div class="faq-inner">
-    <aside class="flow-card">
-      <h3>Luồng thống nhất 3 trang</h3>
-      <p>Bạn có thể đi theo đúng phễu thông tin để tránh rối và không bị trùng nội dung.</p>
-      <ul class="flow-steps">
-        <li><span class="flow-dot">1</span><span><strong>Trang chủ:</strong> hiểu tổng quan và năng lực AI.</span></li>
-        <li><span class="flow-dot">2</span><span><strong>Bảng giá:</strong> chọn gói phù hợp quy mô đội ngũ.</span></li>
-        <li><span class="flow-dot">3</span><span><strong>Hỏi đáp:</strong> chốt các câu hỏi triển khai thực tế.</span></li>
-      </ul>
-    </aside>
 
     <div>
       <div class="faq-list" id="faq-list-main">
