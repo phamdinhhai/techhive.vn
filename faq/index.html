@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hỏi đáp triển khai – TechHive.vn Chatbot AI</title>
+  <meta name="description" content="Giải đáp chi tiết về triển khai chatbot AI TechHive: onboarding, tích hợp Facebook/Zalo, bảo mật dữ liệu, vận hành và chính sách gói dịch vụ." />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blue:#1A6BF5;
+      --blue-hover:#1558D6;
+      --blue-light:#E8F0FE;
+      --ink:#0D1B2A;
+      --ink-soft:#4A5568;
+      --ink-muted:#8A97A8;
+      --surface:#FFFFFF;
+      --bg:#F5F7FA;
+      --border:#E2E8F0;
+      --shadow-lg:0 12px 40px rgba(26,107,245,.13);
+      --font:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+    nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;white-space:nowrap}
+    .logo-image{height:34px;width:auto;display:block;object-fit:contain}
+    .logo-icon{width:32px;height:32px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .logo-icon svg{width:18px;height:18px;fill:#fff}
+    .logo-text{font-size:1.15rem;font-weight:700;color:var(--ink);letter-spacing:-.025em;line-height:1}
+    .logo-text span{color:var(--blue)}
+    .nav-links{display:flex;align-items:center;gap:6px}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--ink-soft);padding:6px 14px;border-radius:8px;text-decoration:none;transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--blue);background:var(--blue-light)}
+    .nav-links a.active{color:var(--blue);background:var(--blue-light)}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .btn-nav-cta{font-size:.82rem;font-weight:700;background:var(--blue);color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background .15s}
+    .btn-nav-cta:hover{background:var(--blue-hover)}
+    .nav-ham{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+    .nav-ham span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+
+    .faq-hero{padding:68px 32px 46px;text-align:center;background:var(--surface);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .faq-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:720px;height:500px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(26,107,245,.08) 0%,transparent 70%);pointer-events:none}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.71rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);background:var(--blue-light);padding:5px 14px;border-radius:20px;margin-bottom:20px}
+    .faq-hero h1{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--ink);line-height:1.25;letter-spacing:-.03em;max-width:760px;margin:0 auto 14px}
+    .faq-hero p{font-size:1rem;color:var(--ink-soft);line-height:1.8;max-width:660px;margin:0 auto}
+
+    .filters-wrap{max-width:980px;margin:30px auto 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .filter-btn{border:1px solid var(--border);background:#fff;color:var(--ink-soft);padding:9px 14px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;transition:.2s}
+    .filter-btn:hover{border-color:#c9dafc;color:var(--blue)}
+    .filter-btn.active{background:var(--blue-light);color:var(--blue);border-color:#c9dafc}
+
+    .faq-section{padding:50px 32px 70px}
+    .faq-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:24px}
+    .flow-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;position:sticky;top:84px;height:fit-content}
+    .flow-card h3{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:8px}
+    .flow-card p{font-size:.8rem;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
+    .flow-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .flow-steps li{font-size:.79rem;color:var(--ink-soft);display:flex;gap:8px;align-items:flex-start}
+    .flow-dot{width:20px;height:20px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;margin-top:1px}
+
+    .faq-list{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg)}
+    .faq-item{border-bottom:1px solid var(--border)}
+    .faq-item:last-child{border-bottom:none}
+    .faq-item.hidden{display:none}
+    .faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);padding:18px 20px;text-align:left;gap:12px;line-height:1.5}
+    .faq-q small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-muted);margin-top:2px}
+    .faq-q svg{width:18px;height:18px;stroke:var(--ink-muted);stroke-width:2;fill:none;flex-shrink:0;transition:transform .25s}
+    .faq-item.open .faq-q svg{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;font-size:.84rem;color:var(--ink-soft);line-height:1.8;padding:0 20px;transition:max-height .3s ease,padding .3s ease}
+    .faq-item.open .faq-a{max-height:320px;padding:0 20px 18px}
+
+    .empty-state{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:16px;border-radius:12px;font-size:.82rem;font-weight:600;margin-top:14px}
+    .empty-state.show{display:block}
+
+    .cta-section{background:var(--ink);color:#fff;padding:64px 32px;text-align:center}
+    .cta-section h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;margin-bottom:12px;letter-spacing:-.03em}
+    .cta-section p{font-size:.95rem;opacity:.75;line-height:1.8;max-width:500px;margin:0 auto 28px}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--ink);font-size:.9rem;font-weight:700;padding:13px 28px;border-radius:10px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.25)}
+    .btn-ghost-white{display:inline-flex;align-items:center;gap:6px;font-size:.86rem;font-weight:500;color:rgba(255,255,255,.7);padding:13px 20px;border-radius:10px;border:1px solid rgba(255,255,255,.15);text-decoration:none;transition:color .15s,border-color .15s}
+    .btn-ghost-white:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    footer span,footer a{font-size:.79rem;color:var(--ink-muted);text-decoration:none}
+    footer a:hover{color:var(--blue)}
+    .footer-links{display:flex;gap:20px}
+
+    .chat-widget{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+    .chat-popup{width:280px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.15);border:1px solid var(--border);overflow:hidden;transform-origin:bottom right;animation:popIn .25s ease}
+    @keyframes popIn{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:none}}
+    .popup-header{background:var(--blue);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+    .popup-av{width:34px;height:34px;background:rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+    .popup-info{flex:1}.popup-info h4{font-size:.82rem;font-weight:700}.popup-info p{font-size:.7rem;opacity:.8}
+    .popup-close{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;padding:2px 4px}
+    .popup-close:hover{color:#fff}
+    .popup-body{padding:14px 14px 16px;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
+    .popup-cta{display:block;margin:12px 14px 14px;background:var(--blue);color:#fff;text-align:center;padding:9px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;transition:background .15s}
+    .popup-cta:hover{background:var(--blue-hover)}
+    .chat-fab{width:52px;height:52px;border-radius:50%;background:var(--blue);box-shadow:0 4px 20px rgba(26,107,245,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+    .chat-fab:hover{transform:scale(1.07);box-shadow:0 6px 28px rgba(26,107,245,.55)}
+    .chat-fab svg{width:24px;height:24px;fill:#fff}
+
+    @media(max-width:980px){.faq-inner{grid-template-columns:1fr}.flow-card{position:static}}
+    @media(max-width:700px){.nav-links{display:none}.nav-ham{display:flex}nav{padding:0 20px}.faq-hero{padding:52px 20px 38px}.faq-section{padding:38px 20px 52px}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" id="nav-logo-home">
+    <img src="../techhive_logo.png" alt="TechHive.vn logo" class="logo-image">
+    <span class="logo-text">TechHive<span>.vn</span></span>
+  </a>
+  <div class="nav-links" id="nav-links-main">
+    <a href="/" id="nav-home">Trang chủ</a>
+    <a href="/pricing" id="nav-pricing">Bảng giá</a>
+    <a href="/faq" id="nav-faq" class="active">Hỏi đáp</a>
+  </div>
+  <div class="nav-right">
+    <a class="btn-nav-cta" href="/pricing" id="nav-cta-pricing">Bắt đầu miễn phí
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <button class="nav-ham" id="nav-mobile-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="faq-hero">
+  <div class="hero-badge">Knowledge Base · Triển khai thực tế</div>
+  <h1>Hỏi đáp triển khai chatbot AI cho doanh nghiệp</h1>
+  <p>Trang này tập trung giải đáp vận hành, tích hợp và bảo mật. Nội dung không lặp lại trang chủ hoặc bảng giá để bạn ra quyết định nhanh hơn.</p>
+  <div class="filters-wrap" id="faq-filter-bar">
+    <button class="filter-btn active" id="filter-all" data-filter="all">Tất cả</button>
+    <button class="filter-btn" id="filter-onboarding" data-filter="onboarding">Onboarding</button>
+    <button class="filter-btn" id="filter-integrations" data-filter="integrations">Tích hợp</button>
+    <button class="filter-btn" id="filter-operations" data-filter="operations">Vận hành</button>
+    <button class="filter-btn" id="filter-security" data-filter="security">Dữ liệu & bảo mật</button>
+    <button class="filter-btn" id="filter-commercial" data-filter="commercial">Thanh toán</button>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-inner">
+    <aside class="flow-card">
+      <h3>Luồng thống nhất 3 trang</h3>
+      <p>Bạn có thể đi theo đúng phễu thông tin để tránh rối và không bị trùng nội dung.</p>
+      <ul class="flow-steps">
+        <li><span class="flow-dot">1</span><span><strong>Trang chủ:</strong> hiểu tổng quan và năng lực AI.</span></li>
+        <li><span class="flow-dot">2</span><span><strong>Bảng giá:</strong> chọn gói phù hợp quy mô đội ngũ.</span></li>
+        <li><span class="flow-dot">3</span><span><strong>Hỏi đáp:</strong> chốt các câu hỏi triển khai thực tế.</span></li>
+      </ul>
+    </aside>
+
+    <div>
+      <div class="faq-list" id="faq-list-main">
+        <article class="faq-item open" data-category="onboarding" id="faq-item-setup-time">
+          <button class="faq-q" id="faq-q-setup-time">
+            <span>Triển khai lần đầu mất bao lâu?<small>Nhóm: Onboarding</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Thông thường 60–120 phút để chạy bản đầu tiên: kết nối kênh, upload tài liệu sản phẩm, cài flow cơ bản và kiểm thử hội thoại mẫu trước khi bật live.</div>
+        </article>
+
+        <article class="faq-item" data-category="onboarding" id="faq-item-training-docs">
+          <button class="faq-q" id="faq-q-training-docs">
+            <span>Cần chuẩn bị tài liệu gì trước khi huấn luyện bot?<small>Nhóm: Onboarding</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Nên có danh mục sản phẩm, chính sách giá/ship, mẫu câu tư vấn và FAQ nội bộ. Tài liệu càng rõ thì câu trả lời càng sát giọng thương hiệu.</div>
+        </article>
+
+        <article class="faq-item" data-category="integrations" id="faq-item-channels">
+          <button class="faq-q" id="faq-q-channels">
+            <span>Kết nối đa kênh có đồng bộ lịch sử hội thoại không?<small>Nhóm: Tích hợp</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Có. Lịch sử từ Facebook/Zalo/Instagram được gom về một luồng theo từng khách hàng để đội sale theo dõi xuyên suốt và tránh bỏ sót bối cảnh cũ.</div>
+        </article>
+
+        <article class="faq-item" data-category="integrations" id="faq-item-crm">
+          <button class="faq-q" id="faq-q-crm">
+            <span>Có đẩy lead và đơn hàng sang CRM được không?<small>Nhóm: Tích hợp</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Có thể cấu hình mapping trường dữ liệu (tên, SĐT, sản phẩm, nguồn chat) sang CRM để automation chăm sóc sau bán và báo cáo doanh thu theo kênh.</div>
+        </article>
+
+        <article class="faq-item" data-category="operations" id="faq-item-human-handoff">
+          <button class="faq-q" id="faq-q-human-handoff">
+            <span>Khi nhân viên vào chat, bot xử lý thế nào?<small>Nhóm: Vận hành</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Bot tự động dừng phản hồi và chuyển quyền cho người thật (human handoff). Sau khi nhân viên rời cuộc trò chuyện, bot có thể tiếp tục follow-up theo rule đã thiết lập.</div>
+        </article>
+
+        <article class="faq-item" data-category="operations" id="faq-item-followup-24h">
+          <button class="faq-q" id="faq-q-followup-24h">
+            <span>Follow-up 24h có bị spam khách hàng không?<small>Nhóm: Vận hành</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Không, nếu cấu hình đúng tần suất và điều kiện dừng. Hệ thống ưu tiên nhắc lại ngữ cảnh trước đó và tự ngắt khi khách đã phản hồi hoặc đã có nhân viên nhận xử lý.</div>
+        </article>
+
+        <article class="faq-item" data-category="security" id="faq-item-data-storage">
+          <button class="faq-q" id="faq-q-data-storage">
+            <span>Dữ liệu hội thoại và đơn hàng được lưu thế nào?<small>Nhóm: Dữ liệu & bảo mật</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Dữ liệu được lưu tập trung theo tenant doanh nghiệp, có phân quyền thành viên, và cơ chế backup định kỳ để đảm bảo an toàn vận hành.</div>
+        </article>
+
+        <article class="faq-item" data-category="security" id="faq-item-access-control">
+          <button class="faq-q" id="faq-q-access-control">
+            <span>Có phân quyền theo vai trò nhân sự không?<small>Nhóm: Dữ liệu & bảo mật</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Có. Bạn có thể giới hạn quyền xem dữ liệu, quyền sửa flow, quyền quản lý sản phẩm/đơn hàng theo phòng ban để giảm rủi ro thao tác sai.</div>
+        </article>
+
+        <article class="faq-item" data-category="commercial" id="faq-item-upgrade-flow">
+          <button class="faq-q" id="faq-q-upgrade-flow">
+            <span>Đang dùng thử thì nâng Business có gián đoạn không?<small>Nhóm: Thanh toán</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Không gián đoạn. Toàn bộ cấu hình và dữ liệu hiện tại được giữ nguyên, chỉ mở rộng hạn mức ngay khi kích hoạt gói Business.</div>
+        </article>
+
+        <article class="faq-item" data-category="commercial" id="faq-item-support-sla">
+          <button class="faq-q" id="faq-q-support-sla">
+            <span>Doanh nghiệp có được hỗ trợ vận hành riêng không?<small>Nhóm: Thanh toán</small></span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Có. Gói Business có hỗ trợ onboarding và tư vấn vận hành theo use-case để tối ưu tỉ lệ phản hồi, tỉ lệ chốt đơn và phối hợp giữa bot với đội sale.</div>
+        </article>
+      </div>
+
+      <div class="empty-state" id="faq-empty-state">Không tìm thấy câu hỏi trong nhóm này. Hãy chọn nhóm khác hoặc quay lại “Tất cả”.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Sẵn sàng triển khai luồng bán hàng tự động?</h2>
+  <p>Bắt đầu từ bảng giá để chọn gói phù hợp, sau đó đội ngũ TechHive sẽ đồng hành thiết kế kịch bản theo ngành hàng của bạn.</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a class="btn-white" href="/pricing" id="faq-cta-pricing">Xem bảng giá Business</a>
+    <a class="btn-ghost-white" href="https://www.facebook.com/TechHive.vn" target="_blank" id="faq-cta-consult">Nhắn tư vấn nhanh →</a>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="../techhive_logo.png" alt="TechHive.vn logo" style="height:30px;width:auto;display:block">
+    <span style="font-weight:700;color:var(--ink);font-size:.85rem">TechHive<span style="color:var(--blue)">.vn</span></span>
+    <span style="color:var(--border)">·</span>
+    <span>© 2025 Giải pháp chatbot AI cho doanh nghiệp Việt Nam</span>
+  </div>
+  <div class="footer-links">
+    <a href="/faq">Chính sách bảo mật</a>
+    <a href="/faq">Điều khoản sử dụng</a>
+    <a href="https://www.facebook.com/TechHive.vn" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-popup" id="chatPopup">
+    <div class="popup-header">
+      <div class="popup-av">🤖</div>
+      <div class="popup-info"><h4>TechHive Bot</h4><p>Thường phản hồi trong vài phút</p></div>
+      <button class="popup-close" id="chat-popup-close" onclick="closeChat()">✕</button>
+    </div>
+    <div class="popup-body">Bạn còn câu hỏi nào về triển khai thực tế? Đội TechHive sẵn sàng hỗ trợ ngay! 😊</div>
+    <a class="popup-cta" href="https://www.facebook.com/TechHive.vn" target="_blank" id="chat-popup-cta">💬 Nhắn tin tư vấn ngay</a>
+  </div>
+  <button class="chat-fab" id="chat-fab-toggle" onclick="toggleChat()" title="Chat với chúng tôi">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const faqItems = document.querySelectorAll('.faq-item');
+  const emptyState = document.getElementById('faq-empty-state');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      let visible = 0;
+      faqItems.forEach((item, index) => {
+        const matched = filter === 'all' || item.dataset.category === filter;
+        item.classList.toggle('hidden', !matched);
+        if (matched) {
+          visible++;
+          if (visible === 1) {
+            faqItems.forEach(i => i.classList.remove('open'));
+            item.classList.add('open');
+          }
+        }
+      });
+
+      emptyState.classList.toggle('show', visible === 0);
+    });
+  });
+
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      if (item.classList.contains('hidden')) return;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  let chatOpen = true;
+  function toggleChat(){
+    chatOpen = !chatOpen;
+    document.getElementById('chatPopup').style.display = chatOpen ? 'block' : 'none';
+  }
+  function closeChat(){
+    chatOpen = false;
+    document.getElementById('chatPopup').style.display = 'none';
+  }
+
+  function toggleMobileMenu(){
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.cssText = '';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:62px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid #E2E8F0;gap:4px;z-index:199';
+    }
+  }
+</script>
+</body>
+</html>

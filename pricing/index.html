@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bảng Giá – TechHive.vn Chatbot AI Bán Hàng</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1A6BF5;
+  --blue-hover:#1558D6;
+  --blue-light:#E8F0FE;
+  --blue-mid:#4D8EF7;
+  --green:#16A34A;
+  --green-light:#DCFCE7;
+  --ink:#0D1B2A;
+  --ink-soft:#4A5568;
+  --ink-muted:#8A97A8;
+  --surface:#FFFFFF;
+  --bg:#F5F7FA;
+  --bg-alt:#EEF2F8;
+  --border:#E2E8F0;
+  --shadow-lg:0 12px 40px rgba(26,107,245,.13);
+  --font:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 40px;height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;white-space:nowrap}
+.logo-image{height:34px;width:auto;display:block;object-fit:contain}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-icon svg{width:18px;height:18px;fill:#fff}
+.logo-text{font-size:1.15rem;font-weight:700;color:var(--ink);letter-spacing:-.025em;line-height:1}
+.logo-text span{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{font-size:.83rem;font-weight:500;color:var(--ink-soft);padding:6px 14px;border-radius:8px;text-decoration:none;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--blue);background:var(--blue-light)}
+.nav-links a.active{color:var(--blue);background:var(--blue-light)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.btn-nav-cta{
+  font-size:.82rem;font-weight:700;
+  background:var(--blue);color:#fff;
+  padding:8px 18px;border-radius:8px;
+  text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  transition:background .15s;
+}
+.btn-nav-cta:hover{background:var(--blue-hover)}
+.nav-ham{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-ham span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+
+/* ── HERO PRICING ── */
+.pricing-hero{
+  padding:64px 32px 48px;
+  text-align:center;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.pricing-hero::before{
+  content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(26,107,245,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.71rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--blue);background:var(--blue-light);
+  padding:5px 14px;border-radius:20px;margin-bottom:20px;
+}
+.pricing-hero h1{
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:800;color:var(--ink);
+  line-height:1.25;letter-spacing:-.03em;
+  max-width:640px;margin:0 auto 14px;
+}
+.pricing-hero p{
+  font-size:1rem;color:var(--ink-soft);line-height:1.8;
+  max-width:480px;margin:0 auto;
+}
+
+/* ── COMPARE TOGGLE ── */
+.toggle-wrap{
+  display:flex;justify-content:center;align-items:center;gap:12px;
+  margin:32px 0 0;font-size:.85rem;font-weight:500;color:var(--ink-soft);
+}
+.toggle-badge{
+  background:linear-gradient(135deg,#FFF7ED,#FFEDD5);
+  border:1px solid #FDBA74;color:#C2410C;
+  font-size:.72rem;font-weight:700;
+  padding:2px 10px;border-radius:20px;
+}
+
+/* ── PRICING SECTION ── */
+.pricing-section{
+  padding:56px 32px 72px;
+  background:var(--bg);
+}
+.pricing-inner{max-width:860px;margin:0 auto}
+
+.pricing-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.price-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:36px 32px;
+  display:flex;flex-direction:column;
+  transition:transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.price-card.featured{
+  border-color:var(--blue);border-width:2px;
+  background:#fff;
+}
+.price-card.featured::before{
+  content:'Trải nghiệm 1 tháng';
+  position:absolute;top:0;right:0;
+  background:var(--blue);color:#fff;
+  font-size:.66rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:6px 16px;border-radius:0 18px 0 12px;
+}
+.price-card.business-card{
+  border-color:var(--ink);border-width:2px;
+  background:var(--ink);color:#fff;
+}
+.price-card.business-card .price-name{color:rgba(255,255,255,.6)}
+.price-card.business-card .price-amount{color:#fff}
+.price-card.business-card .price-period{color:rgba(255,255,255,.5)}
+.price-card.business-card .price-desc{color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.1)}
+.price-card.business-card .price-feat{color:rgba(255,255,255,.75)}
+
+.price-name{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px}
+.price-amount{font-size:2.4rem;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.price-period{font-size:.8rem;color:var(--ink-muted);margin-top:4px;margin-bottom:6px}
+.price-desc{
+  font-size:.82rem;color:var(--ink-soft);
+  margin-bottom:24px;padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+  line-height:1.65;
+}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:28px}
+.price-feat{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:var(--ink-soft);line-height:1.55}
+.feat-check{
+  width:20px;height:20px;border-radius:50%;background:var(--blue-light);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.feat-check svg{width:11px;height:11px;stroke:var(--blue);stroke-width:2.5;fill:none}
+.business-card .feat-check{background:rgba(255,255,255,.12)}
+.business-card .feat-check svg{stroke:rgba(255,255,255,.8)}
+
+.price-btn{
+  display:block;text-align:center;
+  font-size:.88rem;font-weight:700;
+  padding:13px 20px;border-radius:10px;
+  text-decoration:none;transition:background .15s,transform .15s;
+}
+.price-btn.blue{background:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(26,107,245,.3)}
+.price-btn.blue:hover{background:var(--blue-hover);transform:translateY(-1px)}
+.price-btn.dark{background:#fff;color:var(--ink);box-shadow:0 4px 16px rgba(255,255,255,.15)}
+.price-btn.dark:hover{background:#f0f4ff;transform:translateY(-1px)}
+
+/* ── FOMO ── */
+.fomo-note{
+  text-align:center;margin-top:32px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:.83rem;color:#C2410C;font-weight:600;
+}
+.fomo-dot{width:8px;height:8px;border-radius:50%;background:#EF4444;animation:pulse 1.4s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── ADDONS ── */
+.addons-box{
+  margin-top:52px;background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:32px;
+}
+.addons-box h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.addons-box .sub{font-size:.82rem;color:var(--ink-muted);margin-bottom:24px}
+.addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.addon-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 16px;background:var(--bg);border-radius:10px;border:1px solid var(--border);
+  font-size:.82rem;
+}
+.addon-row span:first-child{color:var(--ink-soft)}
+.addon-price{font-weight:700;color:var(--blue)}
+
+/* ── COMPARE TABLE ── */
+.compare-section{
+  padding:56px 32px;background:var(--surface);border-top:1px solid var(--border);
+}
+.compare-inner{max-width:860px;margin:0 auto}
+.compare-section h2{font-size:1.4rem;font-weight:800;color:var(--ink);margin-bottom:28px;text-align:center;letter-spacing:-.02em}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.compare-table th{
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-muted);padding:10px 16px;text-align:center;
+  background:var(--bg);border-bottom:2px solid var(--border);
+}
+.compare-table th:first-child{text-align:left}
+.compare-table th.highlight{color:var(--blue);background:var(--blue-light)}
+.compare-table td{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  text-align:center;color:var(--ink-soft);vertical-align:middle;
+}
+.compare-table td:first-child{text-align:left;font-weight:500;color:var(--ink)}
+.compare-table td.highlight{background:#FAFCFF}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table .check{color:var(--blue);font-size:1rem}
+.compare-table .cross{color:#CBD5E0;font-size:1rem}
+.compare-table .val{font-weight:600;color:var(--ink)}
+
+
+/* ── CTA ── */
+.cta-section{
+  background:var(--ink);color:#fff;
+  padding:64px 32px;text-align:center;
+}
+.cta-section h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;margin-bottom:12px;letter-spacing:-.03em}
+.cta-section p{font-size:.95rem;opacity:.7;line-height:1.8;max-width:480px;margin:0 auto 28px}
+.btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--ink);
+  font-size:.9rem;font-weight:700;
+  padding:13px 28px;border-radius:10px;
+  text-decoration:none;transition:transform .15s,box-shadow .15s;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.25)}
+.btn-ghost-white{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.86rem;font-weight:500;
+  color:rgba(255,255,255,.6);padding:13px 20px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.15);text-decoration:none;
+  transition:color .15s,border-color .15s;
+}
+.btn-ghost-white:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+
+/* ── CHAT WIDGET ── */
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.chat-popup{width:280px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.15);border:1px solid var(--border);overflow:hidden;transform-origin:bottom right;animation:popIn .25s ease}
+@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:none}}
+.popup-header{background:var(--blue);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.popup-av{width:34px;height:34px;background:rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.popup-info{flex:1}
+.popup-info h4{font-size:.82rem;font-weight:700}
+.popup-info p{font-size:.7rem;opacity:.8}
+.popup-close{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;padding:2px 4px}
+.popup-close:hover{color:#fff}
+.popup-body{padding:14px 14px 16px;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
+.popup-cta{display:block;margin:12px 14px 14px;background:var(--blue);color:#fff;text-align:center;padding:9px;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;transition:background .15s}
+.popup-cta:hover{background:var(--blue-hover)}
+.chat-fab{width:52px;height:52px;border-radius:50%;background:var(--blue);box-shadow:0 4px 20px rgba(26,107,245,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+.chat-fab:hover{transform:scale(1.07);box-shadow:0 6px 28px rgba(26,107,245,.55)}
+.chat-fab svg{width:24px;height:24px;fill:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer span,footer a{font-size:.79rem;color:var(--ink-muted);text-decoration:none}
+footer a:hover{color:var(--blue)}
+.footer-links{display:flex;gap:20px}
+
+/* ── MOBILE ── */
+@media(max-width:700px){
+  .nav-links{display:none}.nav-ham{display:flex}
+  .pricing-grid{grid-template-columns:1fr}
+  .addons-grid{grid-template-columns:1fr 1fr}
+  .compare-table{font-size:.76rem}
+  nav{padding:0 20px}
+}
+@media(max-width:480px){
+  .addons-grid{grid-template-columns:1fr}
+  .pricing-hero{padding:48px 20px 36px}
+  .pricing-section{padding:40px 20px 56px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="../techhive_logo.png" alt="TechHive.vn logo" class="logo-image">
+    <span class="logo-text">TechHive<span>.vn</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/">Trang chủ</a>
+    <a href="/pricing" class="active">Bảng giá</a>
+    <a href="/faq">Hỏi đáp</a>
+  </div>
+  <div class="nav-right">
+    <a class="btn-nav-cta" href="/pricing">
+      Bắt đầu miễn phí
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <button class="nav-ham" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="pricing-hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    Bảng giá minh bạch
+  </div>
+  <h1>Hai gói, một quyết định đơn giản</h1>
+  <p>Bắt đầu miễn phí trong 30 ngày, hoặc nâng ngay lên Business để bứt phá không giới hạn.</p>
+  <div class="toggle-wrap">
+    <span>Thanh toán hàng tháng</span>
+    <span class="toggle-badge">Tiết kiệm tới 20% nếu thanh toán năm</span>
+  </div>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="pricing-section">
+  <div class="pricing-inner">
+    <div class="pricing-grid">
+
+      <!-- Trải nghiệm -->
+      <div class="price-card featured">
+        <div class="price-name">Trải nghiệm</div>
+        <div class="price-amount">0đ</div>
+        <div class="price-period">Miễn phí · Giới hạn 1 tháng</div>
+        <div class="price-desc">Khởi đầu không rủi ro — dùng thử toàn bộ tính năng trong 30 ngày đầu tiên.</div>
+        <ul class="price-feats">
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            1 Trang · 1 Thành viên
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            100.000 ký tự AI / tháng
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            1.000 kịch bản chatbot / tháng
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            600 khách mới / tháng
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Facebook, Instagram, Zalo OA
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>⏱ <em>Hết hạn sau 30 ngày kể từ ngày đăng ký</em></span>
+          </li>
+        </ul>
+        <a class="price-btn blue" href="https://www.facebook.com/TechHive.vn" target="_blank" rel="noopener noreferrer">Bắt đầu trải nghiệm</a>
+      </div>
+
+      <!-- Business -->
+      <div class="price-card business-card">
+        <div class="price-name">Business</div>
+        <div class="price-amount">3.000.000đ</div>
+        <div class="price-period">/ tháng · Không giới hạn thời gian</div>
+        <div class="price-desc">Dành cho doanh nghiệp muốn tăng trưởng thực sự. Không giới hạn Credit AI.</div>
+        <ul class="price-feats">
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            40 Trang · 40 Thành viên
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            10.000.000 ký tự AI / tháng
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Tuỳ biến Tên, Logo, Domain
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Kết nối CRM & Google Services
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Quản lý hàng hoá, tồn kho
+          </li>
+          <li class="price-feat">
+            <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Hỗ trợ onboarding & tư vấn riêng
+          </li>
+        </ul>
+        <a class="price-btn dark" href="https://www.facebook.com/TechHive.vn" target="_blank" rel="noopener noreferrer">Tư vấn miễn phí</a>
+      </div>
+
+    </div>
+
+    <!-- FOMO -->
+    <div class="fomo-note">
+      <div class="fomo-dot"></div>
+      Ưu đãi Business 3tr/tháng — chỉ còn <strong style="margin:0 4px">8/50</strong> suất đầu tiên!
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="addons-box">
+      <h3>Mua thêm tài nguyên</h3>
+      <p class="sub">Nâng giới hạn bất kỳ lúc nào, thanh toán theo tháng.</p>
+      <div class="addons-grid">
+        <div class="addon-row"><span>1 Trang / Tháng</span><span class="addon-price">60.000đ</span></div>
+        <div class="addon-row"><span>1 Nhân viên / Tháng</span><span class="addon-price">30.000đ</span></div>
+        <div class="addon-row"><span>1.000.000 ký tự AI</span><span class="addon-price">25.000đ</span></div>
+        <div class="addon-row"><span>1.000 ảnh AI</span><span class="addon-price">25.000đ</span></div>
+        <div class="addon-row"><span>1.000 phút audio AI</span><span class="addon-price">25.000đ</span></div>
+        <div class="addon-row"><span>10.000 kịch bản FAU</span><span class="addon-price">50.000đ</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <h2>So sánh chi tiết hai gói</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:50%">Tính năng</th>
+          <th class="highlight">Trải nghiệm</th>
+          <th>Business</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thời hạn sử dụng</td>
+          <td class="highlight"><span class="val">30 ngày</span></td>
+          <td><span class="val">Không giới hạn</span></td>
+        </tr>
+        <tr>
+          <td>Số trang kết nối</td>
+          <td class="highlight"><span class="val">1 trang</span></td>
+          <td><span class="val">40 trang</span></td>
+        </tr>
+        <tr>
+          <td>Thành viên</td>
+          <td class="highlight"><span class="val">1</span></td>
+          <td><span class="val">40</span></td>
+        </tr>
+        <tr>
+          <td>Ký tự AI / tháng</td>
+          <td class="highlight"><span class="val">100.000</span></td>
+          <td><span class="val">10.000.000</span></td>
+        </tr>
+        <tr>
+          <td>Kịch bản chatbot</td>
+          <td class="highlight"><span class="val">1.000</span></td>
+          <td><span class="val">Không giới hạn</span></td>
+        </tr>
+        <tr>
+          <td>Facebook & Instagram</td>
+          <td class="highlight"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Zalo OA</td>
+          <td class="highlight"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Zalo cá nhân</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Nhận diện ảnh AI</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Kết nối CRM & API</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Tuỳ biến logo / domain</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Hỗ trợ onboarding riêng</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Quản lý tồn kho</td>
+          <td class="highlight"><span class="cross">–</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Bắt đầu ngay hôm nay — miễn phí 30 ngày</h2>
+  <p>Không cần thẻ tín dụng. Không cần kỹ thuật. Chạy được ngay trong 60 phút.</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a class="btn-white" href="https://www.facebook.com/TechHive.vn" target="_blank">🚀 Đăng ký trải nghiệm ngay</a>
+    <a class="btn-ghost-white" href="/faq">Tìm hiểu cách triển khai →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="../techhive_logo.png" alt="TechHive.vn logo" style="height:30px;width:auto;display:block">
+    <span style="font-weight:700;color:var(--ink);font-size:.85rem">TechHive<span style="color:var(--blue)">.vn</span></span>
+    <span style="color:var(--border)">·</span>
+    <span>© 2025 Giải pháp chatbot AI cho doanh nghiệp Việt Nam</span>
+  </div>
+  <div class="footer-links">
+    <a href="/faq">Chính sách bảo mật</a>
+    <a href="/faq">Điều khoản sử dụng</a>
+    <a href="https://www.facebook.com/TechHive.vn" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-popup" id="chatPopup">
+    <div class="popup-header">
+      <div class="popup-av">🤖</div>
+      <div class="popup-info"><h4>TechHive Bot</h4><p>Thường phản hồi trong vài phút</p></div>
+      <button class="popup-close" onclick="closeChat()">✕</button>
+    </div>
+    <div class="popup-body">Bạn muốn tìm hiểu thêm về gói nào? Tôi có thể tư vấn ngay! 😊</div>
+    <a class="popup-cta" href="https://www.facebook.com/TechHive.vn" target="_blank">💬 Nhắn tin tư vấn ngay</a>
+  </div>
+  <button class="chat-fab" onclick="toggleChat()" title="Chat với chúng tôi">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<script>
+
+// ── Chat widget ──
+let chatOpen = true;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatPopup').style.display = chatOpen ? 'block' : 'none';
+}
+function closeChat() {
+  chatOpen = false;
+  document.getElementById('chatPopup').style.display = 'none';
+}
+
+// ── Mobile menu ──
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.cssText = '';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:62px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid #E2E8F0;gap:4px;z-index:199';
+  }
+}
+</script>
+</body>
+</html>
