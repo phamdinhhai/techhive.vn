@@ -288,13 +288,42 @@
     }
 
     .price-card.featured {
+      border-color: var(--ink);
+      border-width: 2px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+
+    .price-card.featured .price-name {
+      color: rgba(255, 255, 255, .6)
+    }
+
+    .price-card.featured .price-amount {
+      color: #fff
+    }
+
+    .price-card.featured .price-period {
+      color: rgba(255, 255, 255, .5)
+    }
+
+    .price-card.featured .price-desc {
+      color: rgba(255, 255, 255, .55);
+      border-color: rgba(255, 255, 255, .1)
+    }
+
+    .price-card.featured .price-feat {
+      color: rgba(255, 255, 255, .75)
+    }
+
+    .price-card.business-card {
       border-color: var(--blue);
       border-width: 2px;
       background: #fff;
     }
 
-    .price-card.featured::before {
-      content: 'Trải nghiệm 1 tháng';
+    .price-card.business-card::before {
+      content: 'Phương án tối ưu nhất';
       position: absolute;
       top: 0;
       right: 0;
@@ -306,34 +335,6 @@
       text-transform: uppercase;
       padding: 6px 16px;
       border-radius: 0 18px 0 12px;
-    }
-
-    .price-card.business-card {
-      border-color: var(--ink);
-      border-width: 2px;
-      background: var(--ink);
-      color: #fff;
-    }
-
-    .price-card.business-card .price-name {
-      color: rgba(255, 255, 255, .6)
-    }
-
-    .price-card.business-card .price-amount {
-      color: #fff
-    }
-
-    .price-card.business-card .price-period {
-      color: rgba(255, 255, 255, .5)
-    }
-
-    .price-card.business-card .price-desc {
-      color: rgba(255, 255, 255, .55);
-      border-color: rgba(255, 255, 255, .1)
-    }
-
-    .price-card.business-card .price-feat {
-      color: rgba(255, 255, 255, .75)
     }
 
     .price-name {
@@ -407,11 +408,11 @@
       fill: none
     }
 
-    .business-card .feat-check {
+    .featured .feat-check {
       background: rgba(255, 255, 255, .12)
     }
 
-    .business-card .feat-check svg {
+    .featured .feat-check svg {
       stroke: rgba(255, 255, 255, .8)
     }
 
@@ -937,11 +938,11 @@
               <span>⏱ <em>Hết hạn sau 30 ngày kể từ ngày đăng ký</em></span>
             </li>
           </ul>
-          <a class="price-btn blue" href="https://www.facebook.com/TechHive.vn" target="_blank"
+          <a class="price-btn dark" href="https://www.facebook.com/TechHive.vn" target="_blank"
             rel="noopener noreferrer">Bắt đầu trải nghiệm</a>
         </div>
 
-        <!-- Business -->
+        <!-- Business  -->
         <div class="price-card business-card">
           <div class="price-name">Business</div>
           <div class="price-amount">3.000.000đ</div>
@@ -985,7 +986,7 @@
               Hỗ trợ onboarding & tư vấn riêng
             </li>
           </ul>
-          <a class="price-btn dark" href="https://www.facebook.com/TechHive.vn" target="_blank"
+          <a class="price-btn blue" href="https://www.facebook.com/TechHive.vn" target="_blank"
             rel="noopener noreferrer">Tư vấn miễn phí</a>
         </div>
 
