@@ -260,13 +260,13 @@
     }
 
     .pricing-inner {
-      max-width: 860px;
+      max-width: 1140px;
       margin: 0 auto
     }
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 24px;
     }
 
@@ -335,6 +335,32 @@
       text-transform: uppercase;
       padding: 6px 16px;
       border-radius: 0 18px 0 12px;
+    }
+
+    .price-card.enterprise-card {
+      border-color: #7C3AED;
+      border-width: 2px;
+      background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%);
+    }
+
+    .price-card.enterprise-card .price-name {
+      color: #7C3AED;
+    }
+
+    .price-card.enterprise-card .price-amount {
+      color: #7C3AED;
+      font-size: 1.8rem;
+    }
+
+    .price-btn.purple {
+      background: #7C3AED;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, .3)
+    }
+
+    .price-btn.purple:hover {
+      background: #6D28D9;
+      transform: translateY(-1px)
     }
 
     .price-name {
@@ -505,7 +531,7 @@
     }
 
     .compare-inner {
-      max-width: 860px;
+      max-width: 1040px;
       margin: 0 auto
     }
 
@@ -818,6 +844,10 @@
         grid-template-columns: 1fr
       }
 
+      .price-card.enterprise-card .price-amount {
+        font-size: 1.6rem;
+      }
+
       .addons-grid {
         grid-template-columns: 1fr 1fr
       }
@@ -881,8 +911,8 @@
       </svg>
       Bảng giá minh bạch
     </div>
-    <h1>Hai gói, một quyết định đơn giản</h1>
-    <p>Bắt đầu miễn phí trong 30 ngày, hoặc nâng ngay lên Business để bứt phá không giới hạn.</p>
+    <h1>Ba gói dịch vụ, phù hợp mọi quy mô</h1>
+    <p>Trải nghiệm miễn phí 10 ngày, nâng cấp Business để tăng trưởng, hoặc Enterprise cho giải pháp toàn diện.</p>
     <div class="toggle-wrap">
       <span>Thanh toán hàng tháng</span>
       <span class="toggle-badge">Tiết kiệm tới 20% nếu thanh toán năm</span>
@@ -898,8 +928,8 @@
         <div class="price-card featured">
           <div class="price-name">Trải nghiệm</div>
           <div class="price-amount">0đ</div>
-          <div class="price-period">Miễn phí · Giới hạn 1 tháng</div>
-          <div class="price-desc">Khởi đầu không rủi ro — dùng thử toàn bộ tính năng trong 30 ngày đầu tiên.</div>
+          <div class="price-period">Miễn phí · Giới hạn 10 ngày</div>
+          <div class="price-desc">Khởi đầu không rủi ro — dùng thử toàn bộ tính năng trong 10 ngày đầu tiên.</div>
           <ul class="price-feats">
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
@@ -935,43 +965,43 @@
               <div class="feat-check"><svg viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </svg></div>
-              <span>⏱ <em>Hết hạn sau 30 ngày kể từ ngày đăng ký</em></span>
+              <span>⏱ <em>Hết hạn sau 10 ngày kể từ ngày đăng ký</em></span>
             </li>
           </ul>
           <a class="price-btn dark" href="https://www.facebook.com/TechHive.vn" target="_blank"
             rel="noopener noreferrer">Bắt đầu trải nghiệm</a>
         </div>
 
-        <!-- Business  -->
+        <!-- Business -->
         <div class="price-card business-card">
           <div class="price-name">Business</div>
-          <div class="price-amount">3.000.000đ</div>
+          <div class="price-amount">6.000.000đ</div>
           <div class="price-period">/ tháng</div>
-          <div class="price-desc">Dành cho doanh nghiệp muốn tăng trưởng thực sự. Không giới hạn Credit AI.</div>
+          <div class="price-desc">Dành cho doanh nghiệp muốn tăng trưởng thực sự với giới hạn linh hoạt.</div>
           <ul class="price-feats">
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </svg></div>
-              Không giới hạn số trang
+              10 Trang kết nối
             </li>
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </svg></div>
-              Không giới hạn ký tự AI
+              100.000.000 ký tự AI / tháng
             </li>
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </svg></div>
-              Không giới hạn số khách hàng chăm sóc
+              20.000 ảnh xử lý / tháng
             </li>
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </svg></div>
-              Kết nối đầy đủ nền tảng: Facebook Fanpage, Instagram, Zalo OA, Zalo Cá Nhân, CRM, Google Services
+              Kết nối: Fanpage Facebook, Instagram, Zalo OA, Google Service
             </li>
             <li class="price-feat">
               <div class="feat-check"><svg viewBox="0 0 24 24">
@@ -990,6 +1020,49 @@
             rel="noopener noreferrer">Tư vấn miễn phí</a>
         </div>
 
+        <!-- Enterprise -->
+        <div class="price-card enterprise-card">
+          <div class="price-name">Enterprise</div>
+          <div class="price-amount">Liên hệ để báo giá</div>
+          <div class="price-period">Tuỳ chỉnh theo nhu cầu</div>
+          <div class="price-desc">Giải pháp toàn diện cho doanh nghiệp lớn — mọi thứ trong Business và hơn thế nữa.
+          </div>
+          <ul class="price-feats">
+            <li class="price-feat">
+              <div class="feat-check"><svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></div>
+              Tất cả tính năng của gói Business
+            </li>
+            <li class="price-feat">
+              <div class="feat-check"><svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></div>
+              Kết nối Zalo cá nhân
+            </li>
+            <li class="price-feat">
+              <div class="feat-check"><svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></div>
+              Tích hợp hệ thống CRM/POS của doanh nghiệp
+            </li>
+            <li class="price-feat">
+              <div class="feat-check"><svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></div>
+              Hỗ trợ cài đặt chức năng theo nhu cầu riêng
+            </li>
+            <li class="price-feat">
+              <div class="feat-check"><svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></div>
+              Hỗ trợ onboarding & tư vấn riêng
+            </li>
+          </ul>
+          <a class="price-btn purple" href="https://www.facebook.com/TechHive.vn" target="_blank"
+            rel="noopener noreferrer">Liên hệ tư vấn</a>
+        </div>
+
       </div>
 
     </div>
@@ -998,65 +1071,94 @@
   <!-- COMPARE TABLE -->
   <section class="compare-section">
     <div class="compare-inner">
-      <h2>So sánh chi tiết hai gói</h2>
+      <h2>So sánh chi tiết ba gói</h2>
       <table class="compare-table">
         <thead>
           <tr>
-            <th style="width:50%">Tính năng</th>
+            <th style="width:40%">Tính năng</th>
             <th>Trải nghiệm</th>
             <th class="highlight">Business</th>
+            <th>Enterprise</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Thời hạn sử dụng</td>
-            <td><span class="val">30 ngày (Không gia hạn)</span></td>
+            <td><span class="val">10 ngày (Không gia hạn)</span></td>
             <td class="highlight"><span class="val">Có thể gia hạn</span></td>
+            <td><span class="val">Có thể gia hạn</span></td>
           </tr>
           <tr>
             <td>Số trang kết nối</td>
             <td><span class="val">1 trang</span></td>
-            <td class="highlight"><span class="val">Không giới hạn</span></td>
+            <td class="highlight"><span class="val">10 trang</span></td>
+            <td><span class="val">Tuỳ chỉnh</span></td>
           </tr>
           <tr>
             <td>Ký tự AI / tháng</td>
             <td><span class="val">100.000</span></td>
-            <td class="highlight"><span class="val">Không giới hạn</span></td>
+            <td class="highlight"><span class="val">100.000.000</span></td>
+            <td><span class="val">Tuỳ chỉnh</span></td>
+          </tr>
+          <tr>
+            <td>Ảnh xử lý / tháng</td>
+            <td><span class="cross">–</span></td>
+            <td class="highlight"><span class="val">20.000</span></td>
+            <td><span class="val">Tuỳ chỉnh</span></td>
           </tr>
           <tr>
             <td>Kịch bản chatbot</td>
             <td><span class="val">1</span></td>
             <td class="highlight"><span class="val">1</span></td>
+            <td><span class="val">Tuỳ chỉnh</span></td>
           </tr>
           <tr>
-            <td>Nhận diện ảnh AI</td>
+            <td>Fanpage Facebook & Instagram</td>
             <td><span class="check">✓</span></td>
             <td class="highlight"><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Facebook & Instagram</td>
             <td><span class="check">✓</span></td>
-            <td class="highlight"><span class="check">✓</span></td>
           </tr>
           <tr>
             <td>Zalo OA</td>
             <td><span class="check">✓</span></td>
             <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Google Service</td>
+            <td><span class="cross">–</span></td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
           </tr>
           <tr>
             <td>Zalo cá nhân</td>
             <td><span class="cross">–</span></td>
-            <td class="highlight"><span class="check">✓</span></td>
+            <td class="highlight"><span class="cross">–</span></td>
+            <td><span class="check">✓</span></td>
           </tr>
           <tr>
-            <td>Kết nối CRM & API</td>
+            <td>Tích hợp CRM</td>
             <td><span class="cross">–</span></td>
-            <td class="highlight"><span class="check">✓</span></td>
+            <td class="highlight"><span class="cross">–</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Tích hợp POS</td>
+            <td><span class="cross">–</span></td>
+            <td class="highlight"><span class="cross">–</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Cài đặt chức năng theo nhu cầu riêng</td>
+            <td><span class="cross">–</span></td>
+            <td class="highlight"><span class="cross">–</span></td>
+            <td><span class="check">✓</span></td>
           </tr>
           <tr>
             <td>Hỗ trợ onboarding riêng</td>
             <td><span class="cross">–</span></td>
             <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
           </tr>
         </tbody>
       </table>
@@ -1066,7 +1168,7 @@
 
   <!-- CTA -->
   <section class="cta-section">
-    <h2>Bắt đầu ngay hôm nay — miễn phí 30 ngày</h2>
+    <h2>Bắt đầu ngay hôm nay — miễn phí 10 ngày</h2>
     <p>Không cần kỹ thuật. Chạy được ngay trong 60 phút.</p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
       <a class="btn-white" href="https://www.facebook.com/TechHive.vn" target="_blank">🚀 Đăng ký trải nghiệm ngay</a>
